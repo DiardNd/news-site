@@ -36,15 +36,5 @@ export const signIn = async (payload: SignInRequestType) => {
 	} catch (error: any) {
 		const err1 = error.response.data.message
 		throw err1
-		// alertService.push({title: 'Произошел обсер', message: error.message })
 	}
 }
-
-// export const authFetch = async (payload: AuthData, path: string): Promise<ResponseAuthBody> => {
-//     const {
-//       data: { user, accessToken },
-//     } = await api.post(path, payload);
-//     setToken(accessToken);
-
-//     return user;
-//   };

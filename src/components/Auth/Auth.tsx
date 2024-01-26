@@ -1,15 +1,26 @@
-import { useState } from 'react'
+import { ChangeEvent, useState, MouseEvent, FocusEvent } from 'react'
+
 import styles from './Auth.module.scss'
 import { signIn, signUp } from '../../api/auth'
 
 export const Auth = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [emailError, setEmailError] = useState('')
 
-	const isValidEmail = (email: string) => {
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-		return emailRegex.test(email)
+	const [emailDirty, setEmailDirty] = useState(false)
+	const [passwordDirty, setPasswordDirty] = useState(false)
+	const [emailError, setEmailError] = useState('You must fill in your email')
+	const [passwordError, setPasswordError] = useState(
+		'You must fill in your password'
+	)
+
+	const [errorMessage, setErrorMessage] = useState('')
+
+	const blurHandler = ({
+		target: { name },
+	}: FocusEvent<HTMLInputElement>): void => {
+		if (name === 'email') setEmailDirty(true)
+		if (name === 'password') setPasswordDirty(true)
 	}
 
 	const emailHandler = ({
@@ -30,7 +41,9 @@ export const Auth = () => {
 		target: { value },
 	}: ChangeEvent<HTMLInputElement>): void => {
 		setPassword(value)
-		setPasswordError('')
+		if (value.length < 7) {
+			setPasswordError('Press 7 letters')
+		} else setPasswordError('')
 	}
 
 	const handleSignUp = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -39,7 +52,7 @@ export const Auth = () => {
 			const response = await signUp({ email, password })
 			setErrorMessage('')
 		} catch (error: any) {
-			setErrorMessage(error) // чтото надо типизировать
+			setErrorMessage(error)
 		}
 	}
 
@@ -47,8 +60,8 @@ export const Auth = () => {
 		e.preventDefault()
 		try {
 			const response = await signIn({ email, password })
-		} catch (err1) {
-			setErrorMessage(err1)
+		} catch (error: any) {
+			setErrorMessage(error)
 		}
 	}
 
@@ -80,10 +93,20 @@ export const Auth = () => {
 				type='password'
 			/>
 			<div className={styles.blockButton}>
-				<button className={styles.button} type='submit' onClick={handleSignIn}>
+				<button
+					className={styles.button}
+					type='submit'
+					onClick={handleSignIn}
+					disabled={Boolean(passwordError || emailError)}
+				>
 					Sign In
 				</button>
-				<button className={styles.button} type='submit' onClick={handleSignUp}>
+				<button
+					className={styles.button}
+					type='submit'
+					onClick={handleSignUp}
+					disabled={Boolean(passwordError || emailError)}
+				>
 					Register
 				</button>
 			</div>
