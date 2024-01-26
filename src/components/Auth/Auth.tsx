@@ -1,62 +1,93 @@
 import { useState } from 'react'
 import styles from './Auth.module.scss'
-
-export interface AuthProps {
-}
+import { signIn, signUp } from '../../api/auth'
 
 export const Auth = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const[emailError, setEmailError] = useState('')
-  
-  
-  const isValidEmail = (email:string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return(emailRegex.test(email))
-  }
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+	const [emailError, setEmailError] = useState('')
 
-  const handleSign = () => {
-    if(!isValidEmail(email))
-    {
-      alert('Please enter a valid email')
-      setEmailError('incorrectEmail');
-      return;
-    } else {
-      setEmailError('');
-    }
+	const isValidEmail = (email: string) => {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+		return emailRegex.test(email)
+	}
 
-  }
-  
-  return (
+	const emailHandler = ({
+		target: { value },
+	}: ChangeEvent<HTMLInputElement>): void => {
+		setEmail(value)
+		const emailRegex =
+			/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
-<form className={styles.form}>
-      <div className={styles.blockInput}>
-        <input className={styles.input} 
-        name= "email"
-        // required
-        placeholder={emailError ? emailError : 'Email'}
-        onChange={(e)=>{
-          setEmail(e.target.value);
-          setEmailError('');
-        }}
-        autoComplete='off'>
-        </input>
+		if (!emailRegex.test(value)) {
+			setEmailError('Please enter a valid email')
+		} else {
+			setEmailError('')
+		}
+	}
 
-        <input className={styles.input} 
-        name= "password" 
-        // required 
-        placeholder='Password'
-        onChange={(e)=>{setPassword(e.target.value)}}
-        autoComplete='off'>
-        </input>
-      </div>
+	const passwordHandler = ({
+		target: { value },
+	}: ChangeEvent<HTMLInputElement>): void => {
+		setPassword(value)
+		setPasswordError('')
+	}
 
-      <div className={styles.blockButton}>
-        <button className={styles.button} onClick={handleSign}>Sign In</button>
-        <button className={styles.button} onClick={()=>{}}>Register</button>
-      </div>
+	const handleSignUp = async (e: MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault()
+		try {
+			const response = await signUp({ email, password })
+			setErrorMessage('')
+		} catch (error: any) {
+			setErrorMessage(error) // чтото надо типизировать
+		}
+	}
 
-</form>
-    
-  );
+	const handleSignIn = async (e: MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault()
+		try {
+			const response = await signIn({ email, password })
+		} catch (err1) {
+			setErrorMessage(err1)
+		}
+	}
+
+	return (
+		<form className={styles.form}>
+			{emailDirty && emailError && (
+				<div className={styles.warning}>{emailError}</div>
+			)}
+			<input
+				className={styles.input}
+				name='email'
+				value={email}
+				placeholder='Email'
+				onChange={emailHandler}
+				onBlur={blurHandler}
+				type='email'
+			/>
+			{passwordDirty && passwordError && (
+				<div className={styles.warning}>{passwordError}</div>
+			)}
+			<input
+				className={styles.input}
+				name='password'
+				placeholder='Password'
+				value={password}
+				onChange={passwordHandler}
+				onBlur={blurHandler}
+				autoComplete='off'
+				type='password'
+			/>
+			<div className={styles.blockButton}>
+				<button className={styles.button} type='submit' onClick={handleSignIn}>
+					Sign In
+				</button>
+				<button className={styles.button} type='submit' onClick={handleSignUp}>
+					Register
+				</button>
+			</div>
+			{errorMessage && <div className={styles.error}>{errorMessage}</div>}
+		</form>
+	)
 }
