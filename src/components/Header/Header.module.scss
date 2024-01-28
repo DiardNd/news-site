@@ -1,0 +1,46 @@
+
+.container
+{
+margin: 0 auto; 
+
+background-color: #636363;
+width: 640px;
+height: 40px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.header
+{
+  margin-left: 5%;
+  justify-self: left;
+}
+
+.searchbar
+{
+height: 40%;
+width:200px;
+}
+
+.hiddenSearchbar{
+  display: none;
+
+}
+
+button{
+  width: 45px;
+  height: 90%;
+  margin-right: 10px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: right;
+
+}
+
+.icon{
+  width: 40px;
+  height: 30px;
+}
