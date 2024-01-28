@@ -1,111 +1,61 @@
-import {
-	ChangeEvent,
-	FormEventHandler,
-	useEffect,
-	useState,
-	MouseEvent,
-	FocusEvent,
-} from 'react'
+import { ChangeEvent, useState, MouseEvent, FocusEvent } from 'react'
 
 import styles from './Auth.module.scss'
 import { signIn, signUp } from '../../api/auth'
 
 export const Auth = () => {
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const[emailError, setEmailError] = useState('')
+  
+  
+  const isValidEmail = (email:string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return(emailRegex.test(email))
+  }
 
-	const [emailDirty, setEmailDirty] = useState(false)
-	const [passwordDirty, setPasswordDirty] = useState(false)
-	const [emailError, setEmailError] = useState('You must fill in your email')
-	const [passwordError, setPasswordError] = useState(
-		'You must fill in your password'
-	)
+  const handleSign = () => {
+    if(!isValidEmail(email))
+    {
+      alert('Please enter a valid email')
+      setEmailError('incorrectEmail');
+      return;
+    } else {
+      setEmailError('');
+    }
 
-	const [errorMessage, setErrorMessage] = useState('')
+  }
+  
+  return (
 
-	const blurHandler = ({
-		target: { name },
-	}: FocusEvent<HTMLInputElement>): void => {
-		if (name === 'email') setEmailDirty(true)
-		if (name === 'password') setPasswordDirty(true)
-	}
+<form className={styles.form}>
+      <div className={styles.blockInput}>
+        <input className={styles.input} 
+        name= "email"
+        // required
+        placeholder={emailError ? emailError : 'Email'}
+        onChange={(e)=>{
+          setEmail(e.target.value);
+          setEmailError('');
+        }}
+        autoComplete='off'>
+        </input>
 
-	const emailHandler = ({
-		target: { value },
-	}: ChangeEvent<HTMLInputElement>): void => {
-		setEmail(value)
-		const emailRegex =
-			/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+        <input className={styles.input} 
+        name= "password" 
+        // required 
+        placeholder='Password'
+        onChange={(e)=>{setPassword(e.target.value)}}
+        autoComplete='off'>
+        </input>
+      </div>
 
-		if (!emailRegex.test(value)) {
-			setEmailError('Please enter a valid email')
-		} else {
-			setEmailError('')
-		}
-	}
+      <div className={styles.blockButton}>
+        <button className={styles.button} onClick={handleSign}>Sign In</button>
+        <button className={styles.button} onClick={()=>{}}>Register</button>
+      </div>
 
-	const passwordHandler = ({
-		target: { value },
-	}: ChangeEvent<HTMLInputElement>): void => {
-		setPassword(value)
-		setPasswordError('')
-	}
-
-	const handleSignUp = async (e: MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault()
-		try {
-			const response = await signUp({ email, password })
-			setErrorMessage('')
-		} catch (err1) {
-			setErrorMessage(err1) // чтото надо типизировать
-		}
-	}
-
-	const handleSignIn = async (e: MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault()
-		try {
-			const response = await signIn({ email, password })
-		} catch (err1) {
-			setErrorMessage(err1)
-		}
-	}
-
-	return (
-		<form className={styles.form}>
-			{emailDirty && emailError && (
-				<div className={styles.warning}>{emailError}</div>
-			)}
-			<input
-				className={styles.input}
-				name='email'
-				value={email}
-				placeholder='Email'
-				onChange={emailHandler}
-				onBlur={blurHandler}
-				type='email'
-			/>
-			{passwordDirty && passwordError && (
-				<div className={styles.warning}>{passwordError}</div>
-			)}
-			<input
-				className={styles.input}
-				name='password'
-				placeholder='Password'
-				value={password}
-				onChange={passwordHandler}
-				onBlur={blurHandler}
-				autoComplete='off'
-				type='password'
-			/>
-			<div className={styles.blockButton}>
-				<button className={styles.button} type='submit' onClick={handleSignIn}>
-					Sign In
-				</button>
-				<button className={styles.button} type='submit' onClick={handleSignUp}>
-					Register
-				</button>
-			</div>
-			{errorMessage && <div className={styles.error}>{errorMessage}</div>}
-		</form>
-	)
+</form>
+    
+  );
 }
