@@ -1,10 +1,24 @@
-.container{
-  position: absolute;
-  right: 5%;
-  top: 55%;
-  background-color: #636363;
+.container {
+	position: absolute;
+	top: 85px;
+	right: 115px;
+	background-color: #aec3fc;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	display: block;
 }
-.hidden{
-  display: none;
+.hidden {
+	display: none;
 }
-.menu{}
+.menu {
+	list-style-type: none;
+	padding: 5px 15px;
+}
+
+@media (max-width: 768px) {
+	.container {
+		top: auto;
+		bottom: 5%;
+		right: 5%;
+	}
+}
