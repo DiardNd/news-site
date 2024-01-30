@@ -1,0 +1,54 @@
+.postItem {
+	border: 2px solid #ddd;
+	border-radius: 8px;
+	padding: 20px;
+	margin: 20px;
+	width: 270px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+}
+
+.postItem:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+.postItem h2 {
+	font-size: 1.5em;
+	margin-bottom: 10px;
+}
+
+.postImage {
+	width: 100%;
+	height: auto;
+	margin-top: 10px;
+	border-radius: 8px;
+}
+
+.author {
+	font-style: italic;
+	color: #7d6f5a;
+	margin-top: 10px;
+}
+
+.publishedAt {
+	font-size: 0.8em;
+	color: #888;
+	margin-top: 5px;
+}
+
+.text {
+	line-height: 1.4;
+	margin-top: 15px;
+}
+
+.rating {
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.commentsCount {
+	color: #7d6f5a;
+	margin-top: 5px;
+}

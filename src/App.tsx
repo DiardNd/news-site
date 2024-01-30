@@ -1,14 +1,14 @@
 import './App.css'
-import { Auth } from './components/Auth/Auth'
-import { Route, Routes, Link } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Homepage } from './pages/Homepage'
+import { Header } from './components/Header/Header'
 
 function App() {
 	return (
 		<>
-			<Auth></Auth>
+			<Header></Header>
 			<Routes>
-				<Route path='/' element={<Homepage />} />
+				<Route index element={<Homepage />} />
 			</Routes>
 		</>
 	)

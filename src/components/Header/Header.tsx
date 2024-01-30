@@ -6,7 +6,7 @@ import { Menu } from '../Menu/Menu'
 import { Link } from 'react-router-dom'
 
 export const Header = () => {
-	const [hideSearch, setHideSearch] = useState(false)
+	const [hideSearch, setHideSearch] = useState(true)
 	const [hideMenu, setHideMenu] = useState(false)
 
 	return (
