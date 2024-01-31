@@ -1,14 +1,19 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import { Homepage } from './pages/Homepage'
-import { Header } from './components/Header/Header'
+import { Userpage } from './pages/Userpage'
+import { Auth } from './components/Auth/Auth'
+import { Layout } from './pages/Layout'
 
 function App() {
 	return (
 		<>
-			<Header></Header>
+			<Auth></Auth>
 			<Routes>
-				<Route index element={<Homepage />} />
+				<Route path='/' element={<Layout />}>
+					<Route index element={<Homepage />} />
+					<Route path='/users' element={<Userpage />} />
+				</Route>
 			</Routes>
 		</>
 	)

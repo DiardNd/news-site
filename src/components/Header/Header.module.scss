@@ -1,4 +1,8 @@
 .container {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+
 	margin: 0 auto;
 	background-color: #aec3fc;
 	width: 640px;
@@ -12,7 +16,6 @@
 .header {
 	margin-left: 5%;
 	justify-self: left;
-	color: gray;
 	font-size: 24px;
 }
 .header:hover {

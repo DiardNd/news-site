@@ -1,24 +1,59 @@
 .container {
 	position: absolute;
-	top: 85px;
-	right: 115px;
+	top: 55px;
+	right: 0px;
+	z-index: 2;
 	background-color: #aec3fc;
 	border-radius: 5px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-	display: block;
+	width: 200px;
+	display: flex;
+	flex-direction: column;
 }
+
+.container:hover {
+	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+	height: auto;
+}
+
 .hidden {
 	display: none;
 }
 .menu {
 	list-style-type: none;
+	padding: 3px 0;
+	margin-left: 0;
+}
+
+.menuElement {
 	padding: 5px 15px;
+}
+.menuElement:hover {
+	cursor: pointer;
+	background-color: #8ab6ff;
+	border-radius: 5px;
 }
 
 @media (max-width: 768px) {
 	.container {
-		top: auto;
-		bottom: 5%;
-		right: 5%;
+		position: fixed;
+
+		width: 80px;
+		height: 50px;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.container:hover {
+		height: auto;
+	}
+
+	.container:hover .menuElement {
+		display: block;
+		font-size: 12px;
+	}
+
+	.menuElement {
+		display: none;
 	}
 }
