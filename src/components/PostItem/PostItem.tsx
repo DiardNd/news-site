@@ -15,7 +15,7 @@ export const PostItem = ({ post, onClick }: PostItemProps): JSX.Element => {
 			id={String(post.id)}
 			onClick={onClick}
 		>
-			<h2>{post.title}</h2>
+			<h2 className={styles.postTitle}>{post.title}</h2>
 			<img
 				className={styles.postImage}
 				src={getCurrentImage(post.coverPath, 'image')}

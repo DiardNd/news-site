@@ -2,13 +2,14 @@ import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import { Homepage } from './pages/Homepage'
 import { Userpage } from './pages/Userpage'
-import { Auth } from './components/Auth/Auth'
+
 import { Layout } from './pages/Layout'
+import ModalWindow from './components/ModalWindow/ModalWindow'
 
 function App() {
 	return (
 		<>
-			<Auth></Auth>
+			<ModalWindow />
 			<Routes>
 				<Route path='/' element={<Layout />}>
 					<Route index element={<Homepage />} />

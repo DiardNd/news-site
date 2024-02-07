@@ -3,6 +3,10 @@ import { ChangeEvent, useState, MouseEvent, FocusEvent } from 'react'
 import styles from './Auth.module.scss'
 import { signIn, signUp } from '../../api/auth'
 
+import { validateEmail, validatePassword } from '../../utils'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { LogInUser } from '../../store/modules/auth/authSlice'
+
 export const Auth = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -16,6 +20,9 @@ export const Auth = () => {
 
 	const [errorMessage, setErrorMessage] = useState('')
 
+	const dispatch = useAppDispatch()
+	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
 	const blurHandler = ({
 		target: { name },
 	}: FocusEvent<HTMLInputElement>): void => {
@@ -27,23 +34,14 @@ export const Auth = () => {
 		target: { value },
 	}: ChangeEvent<HTMLInputElement>): void => {
 		setEmail(value)
-		const emailRegex =
-			/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-
-		if (!emailRegex.test(value)) {
-			setEmailError('Please enter a valid email')
-		} else {
-			setEmailError('')
-		}
+		setEmailError(validateEmail(value) || '')
 	}
 
 	const passwordHandler = ({
 		target: { value },
 	}: ChangeEvent<HTMLInputElement>): void => {
 		setPassword(value)
-		if (value.length < 7) {
-			setPasswordError('Press 7 letters')
-		} else setPasswordError('')
+		setPasswordError(validatePassword(value) || '')
 	}
 
 	const handleSignUp = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -60,6 +58,8 @@ export const Auth = () => {
 		e.preventDefault()
 		try {
 			const response = await signIn({ email, password })
+			dispatch(LogInUser({ isLoggedIn: !isLoggedIn }))
+			console.log(111)
 		} catch (error: any) {
 			setErrorMessage(error)
 		}

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 export const Header = () => {
 	const [hideSearch, setHideSearch] = useState(true)
-	const [hideMenu, setHideMenu] = useState(false)
+	const [isMenuOpened, setIsMenuOpened] = useState(false)
 
 	return (
 		<div className={styles.container}>
@@ -29,13 +29,13 @@ export const Header = () => {
 				<button
 					className={styles.button}
 					onClick={() => {
-						setHideMenu(!hideMenu)
+						setIsMenuOpened(!isMenuOpened)
 					}}
 				>
 					<img className={styles.icon} src={menu} alt='icon-menu' />
 				</button>
 			</div>
-			<Menu isLoggedIn={false} hide={hideMenu}></Menu>
+			<Menu isOpened={isMenuOpened} />
 		</div>
 	)
 }

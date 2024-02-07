@@ -3,9 +3,9 @@
 	top: 55px;
 	right: 0px;
 	z-index: 2;
-	background-color: #aec3fc;
+	background-color: var(--interface-color);
 	border-radius: 5px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 10px var(--box-shadow-color);
 	width: 200px;
 	display: flex;
 	flex-direction: column;
@@ -19,6 +19,7 @@
 .hidden {
 	display: none;
 }
+
 .menu {
 	list-style-type: none;
 	padding: 3px 0;
@@ -27,17 +28,18 @@
 
 .menuElement {
 	padding: 5px 15px;
+	color: var(--font-color); /* Используем переменную из палитры */
 }
+
 .menuElement:hover {
 	cursor: pointer;
-	background-color: #8ab6ff;
+	background-color: var(--interface-color-hover);
 	border-radius: 5px;
 }
 
 @media (max-width: 768px) {
 	.container {
 		position: fixed;
-
 		width: 80px;
 		height: 50px;
 		justify-content: center;
