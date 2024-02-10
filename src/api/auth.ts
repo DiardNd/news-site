@@ -1,5 +1,3 @@
-import { AxiosError, AxiosResponse } from 'axios'
-
 import api from '../modules/axios'
 import { setToken } from '../utils/localStorage'
 
@@ -19,10 +17,8 @@ export const signUp = async (payload: SignInRequestType) => {
 		const { data } = response ?? {}
 		const { accessToken } = data ?? {}
 		setToken(accessToken)
-		// throw new Error() //
 	} catch (error: any) {
 		const err1 = error.response.data.errors
-		// const err1 = { error: { response: { data: { errors } } } };
 		throw err1
 		console.log(error)
 	}
