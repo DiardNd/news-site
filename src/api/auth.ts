@@ -1,36 +1,36 @@
-import api from '../modules/axios'
-import { setToken } from '../utils/localStorage'
+import api from '../modules/axios';
+import { setToken } from '../utils/localStorage';
 
 export type SignInRequestType = {
-	email: string
-	password: string
-}
+	email: string;
+	password: string;
+};
 
 export type SignInResponseType = {
-	status: string
-}
+	status: string;
+};
 
 export const signUp = async (payload: SignInRequestType) => {
 	try {
-		const response = await api.post('/auth/signup', payload)
-		console.log('response', response)
-		const { data } = response ?? {}
-		const { accessToken } = data ?? {}
-		setToken(accessToken)
+		const response = await api.post('/auth/signup', payload);
+		console.log('response', response);
+		const { data } = response ?? {};
+		const { accessToken } = data ?? {};
+		setToken(accessToken);
 	} catch (error: any) {
-		const err1 = error.response.data.errors
-		throw err1
-		console.log(error)
+		const serverError = error.response.data.errors;
+		throw serverError;
 	}
-}
+};
 export const signIn = async (payload: SignInRequestType) => {
 	try {
-		const response = await api.post('/auth/login', payload)
-		const { data } = response ?? {}
-		const { accessToken } = data ?? {}
-		setToken(accessToken)
+		const response = await api.post('/auth/login', payload);
+		console.log('response', response);
+		const { data } = response ?? {};
+		const { accessToken } = data ?? {};
+		setToken(accessToken);
 	} catch (error: any) {
-		const err1 = error.response.data.message
-		throw err1
+		const serverError = error.response.data.message;
+		throw serverError;
 	}
-}
+};

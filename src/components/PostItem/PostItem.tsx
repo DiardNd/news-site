@@ -1,26 +1,28 @@
-import styles from './PostItem.module.scss'
-import { Post } from '../../types/post'
-import { getCurrentImage } from '../../utils'
+import styles from './PostItem.module.scss';
+
+import { Post } from '../../types/post';
+import { getCurrentImage } from '../../utils';
+import { Link } from 'react-router-dom';
 
 type PostItemProps = {
-	post: Post
-	onClick: () => void
-}
+	post: Post;
+	onClick: () => void;
+};
 
-export const PostItem = ({ post, onClick }: PostItemProps): JSX.Element => {
+export const PostItem = ({ post, onClick }: PostItemProps) => {
 	return (
 		<div
 			className={styles.postItem}
 			key={post.id}
 			id={String(post.id)}
-			onClick={onClick}
-		>
-			<h2 className={styles.postTitle}>{post.title}</h2>
+			onClick={onClick}>
+			<Link to={`/posts/${post.id}`}>
+				<h2 className={styles.postTitle}>{post.title}</h2>
+			</Link>
 			<img
 				className={styles.postImage}
 				src={getCurrentImage(post.coverPath, 'image')}
-				alt='image'
-			></img>
+				alt='image'></img>
 			<p className={styles.author}>
 				Author: {post.author.firstName} {post.author.lastName}
 			</p>
@@ -31,5 +33,5 @@ export const PostItem = ({ post, onClick }: PostItemProps): JSX.Element => {
 			<p className={styles.rating}>Rating: {post.rating}</p>
 			<p className={styles.commentsCount}>Comments: {post.commentsCount}</p>
 		</div>
-	)
-}
+	);
+};
