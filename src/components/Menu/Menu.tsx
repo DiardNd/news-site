@@ -1,48 +1,65 @@
-import { Link } from 'react-router-dom'
-import styles from './Menu.module.scss'
-import { useAppDispatch, useAppSelector } from '../../hooks'
-import { toggleSetModal } from '../../store/modules/modal/modalSlice'
-import { LogInUser, logOutUser } from '../../store/modules/auth/authSlice'
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { toggleSetModal } from '../../store/modules/modal/modalSlice';
+import { logOutUser } from '../../store/modules/auth/authSlice';
+
+import styles from './Menu.module.scss';
 
 interface MenuProps {
-	isOpened: boolean
+	isOpened: boolean;
 }
 
 export const Menu = ({ isOpened }: MenuProps) => {
-	const dispatch = useAppDispatch()
-	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+	const dispatch = useAppDispatch();
+	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
 
 	const handleOpenModal = () => {
-		dispatch(toggleSetModal({ isOpen: !isLoggedIn }))
-	}
+		dispatch(toggleSetModal({ isOpen: !isLoggedIn }));
+	};
 
-	const handleLogOut = () => dispatch(logOutUser())
+	const handleLogOut = () => dispatch(logOutUser());
 
 	return (
-		<div className={isOpened ? styles.container : styles.hidden}>
+		<div
+			className={classNames({
+				[styles.container]: isOpened,
+				[styles.hidden]: !isOpened,
+			})}>
 			<ul className={styles.menu}>
-				<Link to='/' className={styles.link}>
+				<Link
+					to='/'
+					className={styles.link}>
 					<li className={styles.menuElement}>Home</li>
 				</Link>
-				<li className={styles.menuElement} onClick={handleOpenModal}>
-					{isLoggedIn ? (
-						<Link to='/users' className={styles.link}>
-							<li className={styles.menuElement}>Account</li>
-						</Link>
-					) : (
-						<li className={styles.menuElement}>Sign In</li>
-					)}
-				</li>
-				<Link to='/' className={styles.link}>
+				{isLoggedIn ? (
+					<Link
+						to='/users'
+						className={styles.link}>
+						<li className={styles.menuElement}>Account</li>
+					</Link>
+				) : (
+					<li
+						className={styles.menuElement}
+						onClick={handleOpenModal}>
+						Sign In
+					</li>
+				)}
+				<Link
+					to='/'
+					className={styles.link}>
 					<li className={styles.menuElement}>Theme</li>
 				</Link>
 				<li
-					className={isLoggedIn ? styles.menuElement : styles.hidden}
-					onClick={handleLogOut}
-				>
+					className={classNames({
+						[styles.menuElement]: isLoggedIn,
+						[styles.hidden]: !isLoggedIn,
+					})}
+					onClick={handleLogOut}>
 					Logout
 				</li>
 			</ul>
 		</div>
-	)
-}
+	);
+};
