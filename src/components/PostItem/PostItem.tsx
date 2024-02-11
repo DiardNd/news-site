@@ -1,8 +1,9 @@
-import styles from './PostItem.module.scss';
+import { Link } from 'react-router-dom';
 
 import { Post } from '../../types/post';
 import { getCurrentImage } from '../../utils';
-import { Link } from 'react-router-dom';
+
+import styles from './PostItem.module.scss';
 
 type PostItemProps = {
 	post: Post;

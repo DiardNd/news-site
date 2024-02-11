@@ -1,12 +1,12 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 
-import { Homepage } from './pages/Homepage/Homepage';
-import { Userpage } from './pages/Userpage/Userpage';
-import { Layout } from './pages/Layout/Layout';
-import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
-import { Postpage } from './pages/Postpage/Postpage';
-import ModalWindow from './components/ModalWindow/ModalWindow';
+import { Homepage } from './pages/Homepage';
+import { Userpage } from './pages/Userpage';
+import { Layout } from './pages/Layout';
+import { NotFoundPage } from './pages/NotFoundPage';
+import { Postpage } from './pages/Postpage';
+import { ModalWindow } from './components/ModalWindow';
 
 function App() {
 	return (

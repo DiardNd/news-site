@@ -1,10 +1,10 @@
 import { ChangeEvent, useState, MouseEvent, FocusEvent } from 'react';
 
-import styles from './Auth.module.scss';
-
 import { validateEmail, validatePassword } from '../../utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { authUser } from '../../store/modules/auth/thunk';
+
+import styles from './Auth.module.scss';
 
 export const Auth = () => {
 	const [email, setEmail] = useState('');

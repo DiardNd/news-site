@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import styles from './Menu.module.scss';
-
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { toggleSetModal } from '../../store/modules/modal/modalSlice';
 import { logOutUser } from '../../store/modules/auth/authSlice';
+
+import styles from './Menu.module.scss';
 
 interface MenuProps {
 	isOpened: boolean;

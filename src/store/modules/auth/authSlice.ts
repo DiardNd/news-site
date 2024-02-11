@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { AuthState } from './types';
-import { removeToken } from '../../../utils/localStorage';
 import { authUser } from './thunk';
+
+import { removeToken } from '../../../utils/localStorage';
 
 const initialState: AuthState = {
 	isLoading: false,
@@ -18,6 +20,7 @@ const authSlice = createSlice({
 		logOutUser(state) {
 			state.isLoggedIn = false;
 			state.authUser = null;
+
 			removeToken();
 		},
 	},

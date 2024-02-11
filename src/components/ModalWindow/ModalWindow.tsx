@@ -6,13 +6,14 @@ import { toggleSetModal } from '../../store/modules/modal/modalSlice';
 
 import styles from './ModalWindow.module.scss';
 
-const ModalWindow = () => {
+export const ModalWindow = () => {
 	const dispatch = useDispatch();
 	const isOpen = useSelector((state: RootState) => state.modal.isOpen);
 
 	const handleCloseModal = () => {
 		dispatch(toggleSetModal({ isOpen: false }));
 	};
+
 	return (
 		isOpen && (
 			<div
@@ -27,5 +28,3 @@ const ModalWindow = () => {
 		)
 	);
 };
-
-export default ModalWindow;

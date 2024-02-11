@@ -36,9 +36,6 @@ const postSlice = createSlice({
 		setSearchText(state, action: PayloadAction<string>) {
 			state.searchText = action.payload;
 		},
-		setPostList(state) {
-			state.postList = getPosts();
-		},
 	},
 
 	extraReducers: builder => {

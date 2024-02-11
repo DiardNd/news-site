@@ -1,4 +1,3 @@
-import { useAppSelector } from '../../../hooks';
 import api from '../../../modules/axios';
 import { PostsListResponse } from '../../../types';
 

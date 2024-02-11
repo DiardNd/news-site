@@ -1,9 +1,9 @@
-import { PostList } from '../../components/PostList/PostList'
+import { PostList } from '../../components/PostList';
 
 export const Homepage = (): JSX.Element => {
 	return (
 		<>
-			<PostList></PostList>
+			<PostList />
 		</>
-	)
-}
+	);
+};

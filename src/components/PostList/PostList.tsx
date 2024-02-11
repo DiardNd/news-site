@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
-import { PostItem } from '../PostItem/PostItem';
-import styles from './PostList.module.scss';
+
+import { PostItem } from '../PostItem';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getPosts } from '../../store/modules/post';
+
+import styles from './PostList.module.scss';
 
 export const PostList = () => {
 	const dispatch = useAppDispatch();

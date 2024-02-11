@@ -2,16 +2,15 @@ import { ChangeEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import styles from './Header.module.scss';
-
 import { Menu } from '../Menu';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postsCounter } from '../../store/modules/post/postSlice';
+import SearchIcon from '../../shared/assets/icons-search.svg?react';
+import MenuIcon from '../../shared/assets/icons-menu.svg?react';
+import RightArrowIcon from '../../shared/assets/rightArrow.svg?react';
+import LeftArrowIcon from '../../shared/assets/leftArrow.svg?react';
 
-import SearchIcon from '../../shared/assets/icons-search.svg';
-import MenuIcon from '../../shared/assets/icons-menu.svg';
-import RightArrowIcon from '../../shared/assets/rightArrow.svg';
-import LeftArrowIcon from '../../shared/assets/leftArrow.svg';
+import styles from './Header.module.scss';
 
 export const Header = () => {
 	const [hideSearch, setHideSearch] = useState(true);
@@ -37,10 +36,6 @@ export const Header = () => {
 		setFind(value);
 	};
 
-	const handleHeaderBlur = () => {
-		setIsMenuOpened(false);
-	};
-
 	return (
 		<div className={styles.container}>
 			<Link
@@ -48,13 +43,14 @@ export const Header = () => {
 				className={styles.header}>
 				News site
 			</Link>
-
 			<button
 				className={styles.buttonArrow}
 				onClick={previousPage}>
-				{/* <LeftArrowIcon /> */}
+				<LeftArrowIcon
+					height='15px'
+					width='15px'
+				/>
 			</button>
-
 			<input
 				className={classNames({
 					[styles.hiddenSearchbar]: hideSearch,
@@ -65,30 +61,29 @@ export const Header = () => {
 				onChange={findHandler}
 				value={find}
 			/>
-
 			<button
 				className={styles.buttonArrow}
 				onClick={nextPage}>
-				{/* <RightArrowIcon /> */}
+				<RightArrowIcon
+					height='15px'
+					width='15px'
+				/>
 			</button>
-
 			<div className={styles.iconContainer}>
 				<button
 					className={styles.button}
 					onClick={() => setHideSearch(!hideSearch)}>
-					<img
-						className={styles.icon}
-						src={SearchIcon}
-						alt='icon-search'
+					<SearchIcon
+						height='25px'
+						width='25px'
 					/>
 				</button>
 				<button
 					className={styles.button}
 					onClick={() => setIsMenuOpened(!isMenuOpened)}>
-					<img
-						className={styles.icon}
-						src={MenuIcon}
-						alt='icon-menu'
+					<MenuIcon
+						height='25px'
+						width='25px'
 					/>
 				</button>
 			</div>
