@@ -14,6 +14,7 @@ interface MenuProps {
 export const Menu = ({ isOpened }: MenuProps) => {
 	const dispatch = useAppDispatch();
 	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+	const userId = useAppSelector(state => state.auth.authUser?.id);
 
 	const handleOpenModal = () => {
 		dispatch(toggleSetModal({ isOpen: !isLoggedIn }));
@@ -35,7 +36,7 @@ export const Menu = ({ isOpened }: MenuProps) => {
 				</Link>
 				{isLoggedIn ? (
 					<Link
-						to='/users'
+						to={`/users/${userId}`}
 						className={styles.link}>
 						<li className={styles.menuElement}>Account</li>
 					</Link>
@@ -57,7 +58,11 @@ export const Menu = ({ isOpened }: MenuProps) => {
 						[styles.hidden]: !isLoggedIn,
 					})}
 					onClick={handleLogOut}>
-					Logout
+					<Link
+						to='/'
+						className={styles.link}>
+						Logout
+					</Link>
 				</li>
 			</ul>
 		</div>

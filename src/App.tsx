@@ -1,4 +1,3 @@
-import './App.css';
 import { Route, Routes } from 'react-router-dom';
 
 import { Homepage } from './pages/Homepage';
@@ -25,7 +24,7 @@ function App() {
 						element={<Postpage />}
 					/>
 					<Route
-						path='/users'
+						path='/users/:id'
 						element={<Userpage />}
 					/>
 					<Route

@@ -28,7 +28,11 @@
 
 .menuElement {
 	padding: 5px 15px;
-	color: var(--font-color); /* Используем переменную из палитры */
+	color: var(--font-color);
+}
+
+.link {
+	color: var(--font-color);
 }
 
 .menuElement:hover {

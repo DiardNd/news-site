@@ -2,10 +2,8 @@
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	padding: 2rem;
+	text-align: center;
 }
 
 a {
@@ -16,17 +14,23 @@ a {
 body {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	min-width: 320px;
+	min-height: 100vh;
+	min-width: 970px;
+	background: linear-gradient(195deg, #d6d5d5, #bcbcbc, #c0c0c0, #a6a6a6, #8c8c8c, #797979);
+}
+
+a {
+	font-weight: 500;
+	text-decoration: none;
+}
+
+body {
+	display: flex;
 	min-height: 100vh;
 	background: linear-gradient(195deg, #d6d5d5, #bcbcbc, #c0c0c0, #a6a6a6, #8c8c8c, #797979);
 }
 
 button {
-	border-radius: 8px;
-	border: 1px solid transparent;
-	padding: 10px;
 	font-weight: 500;
 	font-family: inherit;
-	cursor: pointer;
 }

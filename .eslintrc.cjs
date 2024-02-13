@@ -52,4 +52,4 @@ module.exports = {
 		'import/newline-after-import': ['error', { count: 1 }],
 		'keyword-spacing': ['error'],
 	},
-}
+};
