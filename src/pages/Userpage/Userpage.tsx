@@ -1,7 +1,5 @@
-export const Userpage = (): JSX.Element => {
-	return (
-		<>
-			<div></div>
-		</>
-	);
+import { UserItem } from '../../components/UserItem';
+
+export const Userpage = () => {
+	return <UserItem />;
 };

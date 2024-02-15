@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { AuthState } from './types';
-import { authUser } from './thunk';
+import { authUser, getUserByToken } from './thunk';
 
 import { removeToken } from '../../../utils/localStorage';
 
@@ -28,6 +28,8 @@ const authSlice = createSlice({
 		builder
 			.addCase(authUser.fulfilled, (state, action) => {
 				state.authUser = action.payload;
+				console.log(state.authUser);
+
 				if (typeof action.payload === 'object') {
 					state.isLoggedIn = true;
 					state.errorMessage = '';
@@ -46,6 +48,22 @@ const authSlice = createSlice({
 				state.isLoggedIn = false;
 				state.isLoading = false;
 				state.errorMessage = action.error.message || 'An error occurred';
+			})
+			.addCase(getUserByToken.fulfilled, (state, action) => {
+				state.authUser = action.payload;
+				state.isLoggedIn = true;
+				state.isLoading = false;
+			})
+			.addCase(getUserByToken.pending, state => {
+				state.isLoading = true;
+				state.isLoggedIn = false;
+			})
+			.addCase(getUserByToken.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isLoggedIn = false;
+				if (typeof action.payload === 'string') {
+					state.errorMessage = action.payload;
+				}
 			});
 	},
 });

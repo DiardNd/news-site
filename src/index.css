@@ -24,12 +24,6 @@ a {
 	text-decoration: none;
 }
 
-body {
-	display: flex;
-	min-height: 100vh;
-	background: linear-gradient(195deg, #d6d5d5, #bcbcbc, #c0c0c0, #a6a6a6, #8c8c8c, #797979);
-}
-
 button {
 	font-weight: 500;
 	font-family: inherit;

@@ -17,7 +17,7 @@ export const Menu = ({ isOpened }: MenuProps) => {
 	const userId = useAppSelector(state => state.auth.authUser?.id);
 
 	const handleOpenModal = () => {
-		dispatch(toggleSetModal({ isOpen: !isLoggedIn }));
+		dispatch(toggleSetModal({ isOpen: !isLoggedIn, modalType: 'SIGN IN' }));
 	};
 
 	const handleLogOut = () => dispatch(logOutUser());

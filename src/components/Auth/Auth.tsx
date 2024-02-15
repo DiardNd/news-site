@@ -1,8 +1,8 @@
-import { ChangeEvent, useState, MouseEvent, FocusEvent } from 'react';
+import { ChangeEvent, FocusEvent, MouseEvent, useState } from 'react';
 
-import { validateEmail, validatePassword } from '../../utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { authUser } from '../../store/modules/auth/thunk';
+import { validateEmail, validatePassword } from '../../utils';
 
 import styles from './Auth.module.scss';
 
@@ -22,12 +22,12 @@ export const Auth = () => {
 		if (name === 'password') setPasswordDirty(true);
 	};
 
-	const emailHandler = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+	const handleEmailChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
 		setEmail(value);
 		setEmailError(validateEmail(value) || '');
 	};
 
-	const passwordHandler = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+	const handlePasswordChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
 		setPassword(value);
 		setPasswordError(validatePassword(value) || '');
 	};
@@ -50,7 +50,7 @@ export const Auth = () => {
 				name='email'
 				value={email}
 				placeholder='Email'
-				onChange={emailHandler}
+				onChange={handleEmailChange}
 				onBlur={blurHandler}
 				type='email'
 			/>
@@ -60,7 +60,7 @@ export const Auth = () => {
 				name='password'
 				placeholder='Password'
 				value={password}
-				onChange={passwordHandler}
+				onChange={handlePasswordChange}
 				onBlur={blurHandler}
 				autoComplete='off'
 				type='password'

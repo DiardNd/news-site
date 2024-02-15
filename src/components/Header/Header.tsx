@@ -1,18 +1,21 @@
-import { ChangeEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Menu } from '../Menu';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { postsCounter } from '../../store/modules/post/postSlice';
-import SearchIcon from '../../shared/assets/icons-search.svg?react';
 import MenuIcon from '../../shared/assets/icons-menu.svg?react';
-import RightArrowIcon from '../../shared/assets/rightArrow.svg?react';
+import SearchIcon from '../../shared/assets/icons-search.svg?react';
 import LeftArrowIcon from '../../shared/assets/leftArrow.svg?react';
+import RightArrowIcon from '../../shared/assets/rightArrow.svg?react';
+import { postsCounter } from '../../store/modules/post/postSlice';
+import { Menu } from '../Menu';
 
+import { getUserByToken } from '../../store/modules/auth/thunk';
+import { getToken } from '../../utils';
 import styles from './Header.module.scss';
 
 export const Header = () => {
+	const token = getToken();
 	const [hideSearch, setHideSearch] = useState(true);
 	const [find, setFind] = useState('');
 	const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -36,6 +39,10 @@ export const Header = () => {
 		setFind(value);
 	};
 
+	useEffect(() => {
+		if (token) dispatch(getUserByToken());
+	}, [dispatch, token]);
+
 	return (
 		<div className={styles.container}>
 			<Link
@@ -44,7 +51,7 @@ export const Header = () => {
 				News site
 			</Link>
 			<button
-				className={styles.buttonArrow}
+				className={styles.button}
 				onClick={previousPage}>
 				<LeftArrowIcon
 					height='15px'
@@ -62,7 +69,7 @@ export const Header = () => {
 				value={find}
 			/>
 			<button
-				className={styles.buttonArrow}
+				className={styles.button}
 				onClick={nextPage}>
 				<RightArrowIcon
 					height='15px'

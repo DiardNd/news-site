@@ -22,7 +22,7 @@ export const PostItem = ({ post, onClick }: PostItemProps) => {
 			</Link>
 			<img
 				className={styles.postImage}
-				src={getCurrentImage(post.coverPath, 'image')}
+				src={getCurrentImage(post.coverPath, 'postImage')}
 				alt='image'></img>
 			<p className={styles.author}>
 				Author: {post.author.firstName} {post.author.lastName}

@@ -1,7 +1,7 @@
 .form {
-	position: absolute;
+	position: relative;
 	width: 325px;
-	height: auto;
+	height: 200px;
 	padding: 20px;
 	border-radius: 10px;
 	background-color: var(--background-color-20);
@@ -9,33 +9,51 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	row-gap: 20px;
+	gap: 20px;
+}
+
+.input {
+	height: 30px;
+	width: 200px;
+	border-radius: 5px;
+	border: 1px solid var(--button-border-color);
+	padding: 0 10px;
+	font-size: 14px;
+	margin-top: 10px;
 }
 
 .button {
-	width: 20%;
 	font-size: 14px;
 	white-space: nowrap;
 	padding: 5px 30px;
-	background-color: var(--button-border-color);
+	border: none;
+	background-color: var(--button-background-color);
 	color: var(--font-color);
+	transition: opacity 0.3s ease;
 }
 
 .button:hover {
 	opacity: 0.8;
+	cursor: pointer;
 }
 
 .warning {
-	color: var(--button-border-color);
+	position: absolute;
+	color: var(--warning-color);
 	font-size: 12px;
+	top: 95px;
+}
+
+.warning:first-child {
+	top: 35px;
 }
 
 .error::first-letter {
-	text-transform: capitalize;
+	text-transform: uppercase;
 }
 
 .blockButton {
 	display: flex;
 	justify-content: center;
-	gap: 10px;
+	gap: 20px;
 }

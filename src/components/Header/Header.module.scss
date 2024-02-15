@@ -34,7 +34,7 @@
 	display: none;
 }
 
-button {
+.button {
 	margin: 0 5px;
 	display: flex;
 	justify-content: center;
@@ -48,7 +48,7 @@ button {
 	padding: 10px;
 }
 
-button:hover {
+.button:hover {
 	cursor: pointer;
 	transform: scale(1.2);
 }
