@@ -1,18 +1,17 @@
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [
-		react(),
-		svgr({
-			svgrOptions: {},
+  plugins: [
+    react(),
+    svgr({
+      svgrOptions: {},
 
-			esbuildOptions: {},
+      esbuildOptions: {},
 
-			include: '**/*.svg?react',
-		}),
-	],
-	css: { modules: { localsConvention: 'camelCase' } },
+      include: '**/*.svg?react'
+    })
+  ],
+  css: { modules: { localsConvention: 'camelCase' } }
 });

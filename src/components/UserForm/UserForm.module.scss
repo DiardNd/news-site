@@ -8,26 +8,35 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 15px;
+	gap: 5px;
 }
 
 .input {
 	width: 75%;
 	padding: 10px;
-	border: 1px solid #ccc;
+	border: 1px solid var(--button-border-color);
 	border-radius: 5px;
 	font-size: 16px;
+}
+
+.nameBlock {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
 
 .fileInput {
 	width: 100%;
 	padding: 10px;
-	margin-bottom: 15px;
 }
 
 .warning {
 	color: var(--warning-color);
 	font-size: 12px;
+}
+
+.warningBlock {
+	height: 20px;
 }
 
 .button {
@@ -42,4 +51,8 @@
 .button:hover {
 	opacity: 0.8;
 	cursor: pointer;
+}
+
+.button:disabled{
+	opacity: 0.5;
 }

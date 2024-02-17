@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Post } from 'types/post';
+
 import { User } from '../auth/types';
 
 type UserState = {
@@ -11,10 +12,10 @@ type UserState = {
 	isLoading: boolean;
 };
 const initialState: UserState = {
-	user: null,
-	errorMessage: null,
-	userPostList: null,
-	selectedPost: null,
-	isLoading: false,
-	userPost: null,
+  user: null,
+  errorMessage: null,
+  userPostList: null,
+  selectedPost: null,
+  isLoading: false,
+  userPost: null
 };

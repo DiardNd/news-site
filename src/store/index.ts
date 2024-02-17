@@ -1,15 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { rootReducer } from './reducers'
+import { configureStore } from '@reduxjs/toolkit';
+
+import { rootReducer } from './reducers';
 
 const store = configureStore({
-	reducer: rootReducer,
-	middleware: getDefaultMiddleware =>
-		getDefaultMiddleware({
-			immutableCheck: false,
-			serializableCheck: false,
-		}),
-})
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      immutableCheck: false,
+      serializableCheck: false
+    })
+});
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
-export default store
+export default store;

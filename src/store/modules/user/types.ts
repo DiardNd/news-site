@@ -6,7 +6,7 @@ export interface UserRequest {
 	file: string;
 }
 
-export interface editUserThunk {
+export interface FormDataPayload {
 	id: number;
-	payload: UserRequest;
+	payload: FormData;
 }

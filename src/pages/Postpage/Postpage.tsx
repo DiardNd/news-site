@@ -1,7 +1,7 @@
 export const Postpage = (): JSX.Element => {
-	return (
-		<>
-			<div></div>
-		</>
-	);
+  return (
+    <>
+      <div></div>
+    </>
+  );
 };
