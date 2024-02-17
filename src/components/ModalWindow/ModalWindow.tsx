@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../../store';
-import { toggleSetModal } from '../../store/modules/modal/modalSlice';
+import { ModalType, toggleSetModal } from '../../store/modules/modal/modalSlice';
 import { Auth } from '../Auth';
 import { UserForm } from '../UserForm';
 
@@ -13,7 +13,7 @@ export const ModalWindow = () => {
   const modalType = useSelector((state: RootState) => state.modal.modalType);
 
   const handleCloseModal = () => {
-    dispatch(toggleSetModal({ isOpen: false, modalType: 'SIGN IN' }));
+    dispatch(toggleSetModal({ isOpen: false, modalType: ModalType.SIGN_IN }));
   };
 
   const isModalSign = modalType.includes('SIGN');

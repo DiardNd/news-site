@@ -1,6 +1,4 @@
-import {
-  ChangeEvent, useEffect, useState 
-} from 'react';
+import {  ChangeEvent, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 

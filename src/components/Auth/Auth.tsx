@@ -1,5 +1,8 @@
 import {
-  ChangeEvent, FocusEvent, MouseEvent, useState
+  ChangeEvent,
+  FocusEvent,
+  MouseEvent,
+  useState
 } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
