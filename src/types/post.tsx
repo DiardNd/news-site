@@ -1,4 +1,4 @@
-export interface Root {
+export interface PostsListResponse {
 	posts: Post[]
 	total: number
 }

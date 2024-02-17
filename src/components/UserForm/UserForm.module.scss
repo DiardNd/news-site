@@ -1,0 +1,58 @@
+.form {
+	position: relative;
+	width: 325px;
+	padding: 40px;
+	border-radius: 10px;
+	background-color: var(--background-color-20);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.input {
+	width: 75%;
+	padding: 10px;
+	border: 1px solid var(--button-border-color);
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+.nameBlock {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.fileInput {
+	width: 100%;
+	padding: 10px;
+}
+
+.warning {
+	color: var(--warning-color);
+	font-size: 12px;
+}
+
+.warningBlock {
+	height: 20px;
+}
+
+.button {
+	padding: 5px 20px;
+	background-color: var(--button-background-color);
+	color: var(--font-color);
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+.button:hover {
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+.button:disabled{
+	opacity: 0.5;
+}

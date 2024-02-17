@@ -1,116 +1,92 @@
-import { ChangeEvent, useState, MouseEvent, FocusEvent } from 'react'
+import {
+  ChangeEvent,
+  FocusEvent,
+  MouseEvent,
+  useState
+} from 'react';
 
-import styles from './Auth.module.scss'
-import { signIn, signUp } from '../../api/auth'
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { authUser } from '../../store/modules/auth/thunk';
+import { checkIsEmailValid, checkIsPasswordValid } from '../../utils';
 
-import { validateEmail, validatePassword } from '../../utils'
-import { useAppDispatch, useAppSelector } from '../../hooks'
-import { LogInUser } from '../../store/modules/auth/authSlice'
+import styles from './Auth.module.scss';
 
 export const Auth = () => {
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailDirty, setEmailDirty] = useState(false);
+  const [passwordDirty, setPasswordDirty] = useState(false);
+  const [emailError, setEmailError] = useState('You must fill in your email');
+  const [passwordError, setPasswordError] = useState('You must fill in your password');
 
-	const [emailDirty, setEmailDirty] = useState(false)
-	const [passwordDirty, setPasswordDirty] = useState(false)
-	const [emailError, setEmailError] = useState('You must fill in your email')
-	const [passwordError, setPasswordError] = useState(
-		'You must fill in your password'
-	)
+  const dispatch = useAppDispatch();
+  const errorMessage = useAppSelector(state => state.auth.errorMessage);
 
-	const [errorMessage, setErrorMessage] = useState('')
+  const blurHandler = ({ target: { name } }: FocusEvent<HTMLInputElement>) => {
+    if (name === 'email') setEmailDirty(true);
+    if (name === 'password') setPasswordDirty(true);
+  };
 
-	const dispatch = useAppDispatch()
-	const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const handleEmailChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setEmail(value);
+    setEmailError(checkIsEmailValid(value) || '');
+  };
 
-	const blurHandler = ({
-		target: { name },
-	}: FocusEvent<HTMLInputElement>): void => {
-		if (name === 'email') setEmailDirty(true)
-		if (name === 'password') setPasswordDirty(true)
-	}
+  const handlePasswordChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setPassword(value);
+    setPasswordError(checkIsPasswordValid(value) || '');
+  };
 
-	const emailHandler = ({
-		target: { value },
-	}: ChangeEvent<HTMLInputElement>): void => {
-		setEmail(value)
-		setEmailError(validateEmail(value) || '')
-	}
+  const handleSignUp = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    dispatch(authUser({ email, password, path: '/auth/signup' }));
+  };
 
-	const passwordHandler = ({
-		target: { value },
-	}: ChangeEvent<HTMLInputElement>): void => {
-		setPassword(value)
-		setPasswordError(validatePassword(value) || '')
-	}
+  const handleSignIn = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    dispatch(authUser({ email, password, path: '/auth/login' }));
+  };
 
-	const handleSignUp = async (e: MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault()
-		try {
-			const response = await signUp({ email, password })
-			setErrorMessage('')
-		} catch (error: any) {
-			setErrorMessage(error)
-		}
-	}
-
-	const handleSignIn = async (e: MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault()
-		try {
-			const response = await signIn({ email, password })
-			dispatch(LogInUser({ isLoggedIn: !isLoggedIn }))
-			console.log(111)
-		} catch (error: any) {
-			setErrorMessage(error)
-		}
-	}
-
-	return (
-		<form className={styles.form}>
-			{emailDirty && emailError && (
-				<div className={styles.warning}>{emailError}</div>
-			)}
-			<input
-				className={styles.input}
-				name='email'
-				value={email}
-				placeholder='Email'
-				onChange={emailHandler}
-				onBlur={blurHandler}
-				type='email'
-			/>
-			{passwordDirty && passwordError && (
-				<div className={styles.warning}>{passwordError}</div>
-			)}
-			<input
-				className={styles.input}
-				name='password'
-				placeholder='Password'
-				value={password}
-				onChange={passwordHandler}
-				onBlur={blurHandler}
-				autoComplete='off'
-				type='password'
-			/>
-			<div className={styles.blockButton}>
-				<button
-					className={styles.button}
-					type='submit'
-					onClick={handleSignIn}
-					disabled={Boolean(passwordError || emailError)}
-				>
+  return (
+    <form className={styles.form}>
+      {emailDirty && emailError && <div className={styles.warning}>{emailError}</div>}
+      <input
+        className={styles.input}
+        name='email'
+        value={email}
+        placeholder='Email'
+        onChange={handleEmailChange}
+        onBlur={blurHandler}
+        type='email'
+      />
+      {passwordDirty && passwordError && <div className={styles.warning}>{passwordError}</div>}
+      <input
+        className={styles.input}
+        name='password'
+        placeholder='Password'
+        value={password}
+        onChange={handlePasswordChange}
+        onBlur={blurHandler}
+        autoComplete='off'
+        type='password'
+      />
+      <div className={styles.blockButton}>
+        <button
+          className={styles.button}
+          type='submit'
+          onClick={handleSignIn}
+          disabled={Boolean(passwordError || emailError)}>
 					Sign In
-				</button>
-				<button
-					className={styles.button}
-					type='submit'
-					onClick={handleSignUp}
-					disabled={Boolean(passwordError || emailError)}
-				>
+        </button>
+        <button
+          className={styles.button}
+          type='submit'
+          onClick={handleSignUp}
+          disabled={Boolean(passwordError || emailError)}>
 					Register
-				</button>
-			</div>
-			{errorMessage && <div className={styles.error}>{errorMessage}</div>}
-		</form>
-	)
-}
+        </button>
+      </div>
+      {errorMessage && <div className={styles.error}>{errorMessage}</div>}
+    </form>
+  );
+};

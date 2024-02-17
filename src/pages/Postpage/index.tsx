@@ -1,0 +1,1 @@
+export { Postpage } from './Postpage';

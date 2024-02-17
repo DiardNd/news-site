@@ -1,31 +1,32 @@
-import { useEffect, useState } from 'react'
-import { Post } from '../../types/post'
-import api from '../../modules/axios'
-import { PostItem } from '../PostItem/PostItem'
-import styles from './PostList.module.scss'
+import { useEffect } from 'react';
+
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getPosts } from '../../store/modules/post';
+import { PostItem } from '../PostItem';
+
+import styles from './PostList.module.scss';
 
 export const PostList = () => {
-	const [posts, setPosts] = useState<Post[]>([])
-	useEffect(() => {
-		const getPosts = async () => {
-			try {
-				const response = await api.get('/posts')
-				console.log('response', response)
-				setPosts(response.data.posts.slice(0, 8))
-			} catch (error) {
-				console.log(error)
-			}
-		}
-		getPosts()
-	}, [])
+  const dispatch = useAppDispatch();
+  const startCountPosts = useAppSelector(state => state.post.startCountPosts);
+  const endCountPosts = useAppSelector(state => state.post.endCountPosts);
+  const posts = useAppSelector(state => state.post.postList.slice(startCountPosts, endCountPosts));
 
-	if (posts.length === 0) return null
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [startCountPosts]);
 
-	return (
-		<div className={styles.postList}>
-			{posts.map(post => (
-				<PostItem key={post.id} post={post} onClick={() => {}} />
-			))}
-		</div>
-	)
-}
+  if (posts.length === 0) return null;
+
+  return (
+    <div className={styles.postList}>
+      {posts.map(post => (
+        <PostItem
+          key={post.id}
+          post={post}
+          onClick={() => {}}
+        />
+      ))}
+    </div>
+  );
+};
