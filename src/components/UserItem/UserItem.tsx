@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { ModalType, toggleSetModal } from '../../store/modules/modal/modalSlice';
 import { getCurrentImage } from '../../utils';
-import { PostForm } from '../PostForm';
+// import { PostForm } from '../PostForm';
 
 import styles from './UserItem.module.scss';
 
@@ -59,7 +59,7 @@ export const UserItem = () => {
         </button>
       </div>
       <div className={styles.rightBlock}>
-        <PostForm />
+        {/* <PostForm /> */}
       </div>
     </div>
   );
