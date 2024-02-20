@@ -65,6 +65,6 @@ const postSlice = createSlice({
   }
 });
 
-export const { postsCounter, setFilterValue, setSearchText, setPostList } = postSlice.actions;
+export const { postsCounter, setFilterValue, setSearchText } = postSlice.actions;
 
 export default postSlice.reducer;

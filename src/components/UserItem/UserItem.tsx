@@ -1,7 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { ModalType, toggleSetModal } from '../../store/modules/modal/modalSlice';
 import { getCurrentImage } from '../../utils';
-// import { PostForm } from '../PostForm';
+import { PostForm } from '../PostForm';
+import defaultAvatar from '../../shared/assets/Default-avatar.jpg';
 
 import styles from './UserItem.module.scss';
 
@@ -21,46 +22,49 @@ export const UserItem = () => {
 
   return (
     <div className={styles.userItem}>
-      <div className={styles.leftBlock}>
-        <div className={styles.avatar}>
-          {user.avatarPath ? (
-            <img
-              src={getCurrentImage(user.avatarPath, 'avatar')}
-              alt='Avatar'
-            />
-          ) : (
-            <img
-              src=''
-              alt='defaultAvatar'
-            />
-          )}
-        </div>
-        <div className={styles.userInfo}>
+      <div className={styles.itemInfo}>
+        <div className={styles.leftBlock}>
+          <div className={styles.avatar}>
+            {user.avatarPath ? (
+              <img
+                src={getCurrentImage(user.avatarPath, 'avatar')}
+                alt='Avatar'
+              />
+            ) : (
+              <img
+                src={defaultAvatar}
+                alt='defaultAvatar'
+              />
+            )}
+          </div>
+          <div className={styles.userInfo}>
+            <p>
+              <strong>First Name:</strong> {user.firstName || 'N/A'}
+            </p>
+            <p>
+              <strong>Last Name:</strong> {user.lastName || 'N/A'}
+            </p>
+            <p>
+              <strong>Email:</strong> {user.email}
+            </p>
+          </div>
           <p>
-            <strong>First Name:</strong> {user.firstName || 'N/A'}
+            <strong>Created At:</strong> {toLocaleDate(user.createdAt)}
           </p>
           <p>
-            <strong>Last Name:</strong> {user.lastName || 'N/A'}
+            <strong>Updated At:</strong> {toLocaleDate(user.updatedAt)}
           </p>
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
-        </div>
-        <p>
-          <strong>Created At:</strong> {toLocaleDate(user.createdAt)}
-        </p>
-        <p>
-          <strong>Updated At:</strong> {toLocaleDate(user.updatedAt)}
-        </p>
-        <button
-          onClick={handleOpenModal}
-          className={styles.button}>
+          <button
+            onClick={handleOpenModal}
+            className={styles.button}>
 					Edit
-        </button>
+          </button>
+        </div>
+        <div className={styles.rightBlock}>
+          <PostForm />
+        </div>
       </div>
-      <div className={styles.rightBlock}>
-        {/* <PostForm /> */}
-      </div>
+      <div className={styles.myPost}></div>
     </div>
   );
 };

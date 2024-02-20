@@ -29,9 +29,3 @@ export type AuthState = {
   path: string;
 };
 
-export type AuthFormState = {
-  email: string;
-  password: string;
-  emailError: string;
-  passwordError: string;
-};

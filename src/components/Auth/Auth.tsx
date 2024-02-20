@@ -4,13 +4,19 @@ import {
   MouseEvent,
   useReducer
 } from 'react';
-import { AuthFormState } from 'store/modules/auth/types';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { authUser } from '../../store/modules/auth/thunk';
 import { checkIsEmailValid, checkIsPasswordValid, authReducer } from '../../utils';
 
 import styles from './Auth.module.scss';
+
+interface AuthFormState {
+  email: string;
+  password: string;
+  emailError: string;
+  passwordError: string;
+}
 
 export const Auth = () => {
   const initialState: AuthFormState = {
