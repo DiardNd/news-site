@@ -1,17 +1,28 @@
+import { useEffect } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { ModalType, toggleSetModal } from '../../store/modules/modal/modalSlice';
 import { getCurrentImage } from '../../utils';
 import { PostForm } from '../PostForm';
 import defaultAvatar from '../../shared/assets/Default-avatar.jpg';
+import { PostItem } from '../../components/PostItem';
+import { getPosts } from '../../store/modules/post';
 
 import styles from './UserItem.module.scss';
 
 export const UserItem = () => {
   const user = useAppSelector(state => state.auth.authUser);
-  const dispatch = useAppDispatch();
+  const myPostList = useAppSelector(state => state.post.postList);
+  const reduxDispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (myPostList.length === 0) {
+      reduxDispatch(getPosts());
+    }
+  }, []);
 
   const handleOpenModal = () => {
-    dispatch(toggleSetModal({ isOpen: true, modalType: ModalType.EDIT_USER   }));
+    reduxDispatch(toggleSetModal({ isOpen: true, modalType: ModalType.EDIT_USER }));
   };
 
   const toLocaleDate = (payload: string) => {
@@ -64,7 +75,18 @@ export const UserItem = () => {
           <PostForm />
         </div>
       </div>
-      <div className={styles.myPost}></div>
+      <div className={styles.myPost}>
+        <h2 className={styles.header}>My posts</h2>
+        {myPostList.filter(post => post.authorId === user.id).map(post => (
+          <>
+            <PostItem
+              key={post.id}
+              post={post}
+              onClick={() => {}} // временное решение
+            />
+          </>
+        ))}
+      </div>
     </div>
   );
 };

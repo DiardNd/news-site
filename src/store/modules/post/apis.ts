@@ -12,3 +12,16 @@ export const fetchCreatedPost = async (payload: FormData) => {
 
   return data;
 };
+
+export const deletePost = async (postId: number) => {
+  await api.delete(`/posts/${postId}`);
+};
+
+export const editPost = async (id: number, payload: FormData) => {
+  const { data } = await api.patch(`/posts/${id}`, payload, {
+    headers: CONTENT_TYPE,
+    params: { id }
+  });
+
+  return data;
+};

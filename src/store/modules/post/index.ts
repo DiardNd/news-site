@@ -1,1 +1,1 @@
-export { getPosts } from './thunk';
+export { getPosts, createPost, deletePostById } from './thunk';

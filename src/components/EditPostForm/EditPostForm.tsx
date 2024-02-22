@@ -1,24 +1,39 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 
-import { useAppDispatch } from '../../hooks';
-import { createPost } from '../../store/modules/post';
+import { getCurrentImage } from '../../utils';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import defaultImage from '../../shared/assets/Default-image.png';
+import { editPostById } from '../../store/modules/post/thunk';
 
-import styles from './PostForm.module.scss';
+import styles from './EditPostForm.module.scss';
 
-export const PostForm = () => {
-  const [postPicture, setPostPicture] = useState(defaultImage);
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
-  const [tag, setTag] = useState('');
-  const [file, setFile] = useState<File | null>(null);
+export const EditPostForm = () => {
   const reduxDispatch = useAppDispatch();
+  const selectedPost = useAppSelector(state => state.post.selectedPost);
+  const [postPicture, setPostPicture] = useState(getCurrentImage(selectedPost!.coverPath, defaultImage));
+  const [title, setTitle] = useState(selectedPost?.title || '');
+  const [text, setText] = useState(selectedPost?.title || '');
+  const [file, setFile] = useState<File | null>(null);
+
+  if (!selectedPost) return;
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append('title', title);
+    formData.append('text', text);
+
+    if (file) formData.append('file', file);
+
+    await reduxDispatch(editPostById({ id:selectedPost.id, payload: formData }));
+  };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     if (name === 'title') setTitle(value);
     if (name === 'text') setText(value);
-    if (name === 'tags') setTag(value);
   };
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,25 +45,7 @@ export const PostForm = () => {
     }
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData();
-
-    formData.append('title', title);
-    formData.append('text', text);
-    formData.append('tags[]', tag);
-
-    if (file) formData.append('file', file);
-
-    await reduxDispatch(createPost(formData));
-
-    setTitle('');
-    setText('');
-    setTag('');
-    setFile(null);
-    setPostPicture(defaultImage);
-  };
+  if (!selectedPost) return null;
 
   return (
     <form className={styles.postForm} onSubmit={handleSubmit}>
@@ -79,18 +76,10 @@ export const PostForm = () => {
         name='text'
         placeholder='Place for text...'
       />
-      <input
-        className={styles.tags}
-        value={tag}
-        onChange={handleInputChange}
-        type='text'
-        name='tags'
-        placeholder='Tags separated by commas..'
-      />
       <button
         type='submit'
         className={styles.button}>
-				Post
+            Post
       </button>
     </form>
   );

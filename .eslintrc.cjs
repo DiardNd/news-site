@@ -21,7 +21,7 @@ module.exports = {
       'error',
       {
         ObjectExpression: { multiline: true, minProperties: 4 },
-        ObjectPattern: { multiline: true, consistent: true },
+        ObjectPattern: { multiline: true },
         ImportDeclaration: {
           minProperties: 4,
           multiline: true,

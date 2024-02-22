@@ -1,10 +1,25 @@
 .itemInfo {
 	min-width: 720px;
-	min-height: 75vh;
+	min-height: 620px;
 	padding: 10px;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 10px;
+}
+
+.myPost{
+	display: flex;
+	background-color: var(--background-color-20);
+	border: 2px solid var(--light-grey-color);
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border-radius: 8px;
+	padding: 10px;
+}
+.header{
+	margin: 0 auto;
+	padding: 10px;
 }
 
 .leftBlock,
@@ -29,6 +44,7 @@
 
 .avatar img {
 	max-width: 100%;
+	min-height:270px;
 	height: auto;
 	border-radius: 20px;
 }

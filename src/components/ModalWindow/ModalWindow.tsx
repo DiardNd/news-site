@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
+import { DeletePost } from '../../components/DeletePost';
+import { EditPostForm } from '../../components/EditPostForm';
 import { RootState } from '../../store';
 import { ModalType, toggleSetModal } from '../../store/modules/modal/modalSlice';
 import { Auth } from '../Auth';
@@ -16,8 +18,10 @@ export const ModalWindow = () => {
     dispatch(toggleSetModal({ isOpen: false, modalType: ModalType.SIGN_IN }));
   };
 
-  const isModalSign = modalType.includes('SIGN');
-  const isModalUserForm = modalType.includes('EDIT');
+  const isModalSign = modalType.includes('SIGN IN');
+  const isModalUserForm = modalType.includes('EDIT USER');
+  const isModalConfirmDelete = modalType.includes('DELETE');
+  const isModalPostForm = modalType.includes('EDIT POST');
 
   return (
     isOpen && (
@@ -29,6 +33,8 @@ export const ModalWindow = () => {
           onClick={e => e.stopPropagation()}>
           {isModalSign && <Auth />}
           {isModalUserForm && <UserForm />}
+          {isModalConfirmDelete && <DeletePost />}
+          {isModalPostForm && <EditPostForm />}
         </div>
       </div>
     )

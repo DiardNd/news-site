@@ -2,10 +2,13 @@ import { PayloadAction, createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { authUser } from '../auth/thunk';
 import { editUserById } from '../user/thunk';
+import { deletePostById, editPostById } from '../post/thunk';
 
 export enum ModalType {
   SIGN_IN = 'SIGN IN',
-  EDIT_USER = 'EDIT'
+  EDIT_USER = 'EDIT USER',
+  EDIT_POST = 'EDIT POST',
+  DELETE_POST = 'DELETE POST'
 }
 
 type ModalState = {
@@ -32,7 +35,7 @@ const modalSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addMatcher(
-      isAnyOf(authUser.fulfilled, editUserById.fulfilled),
+      isAnyOf(authUser.fulfilled, editUserById.fulfilled, editPostById.fulfilled, deletePostById.fulfilled),
       (state) => {
         state.isOpen = false;
       }
