@@ -4,6 +4,7 @@ import api from '../../../modules/axios';
 
 export const fetchGetPosts = async () => {
   const { data } = await api.get<PostsListResponse>('posts');
+
   return data;
 };
 

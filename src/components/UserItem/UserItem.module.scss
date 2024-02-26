@@ -7,7 +7,7 @@
 	gap: 10px;
 }
 
-.myPost{
+.myPost {
 	display: flex;
 	background-color: var(--background-color-20);
 	border: 2px solid var(--light-grey-color);
@@ -17,7 +17,8 @@
 	border-radius: 8px;
 	padding: 10px;
 }
-.header{
+
+.header {
 	margin: 0 auto;
 	padding: 10px;
 }
@@ -44,7 +45,7 @@
 
 .avatar img {
 	max-width: 100%;
-	min-height:270px;
+	min-height: 270px;
 	height: auto;
 	border-radius: 20px;
 }
