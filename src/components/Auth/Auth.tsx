@@ -2,69 +2,89 @@ import {
   ChangeEvent,
   FocusEvent,
   MouseEvent,
-  useState
+  useReducer
 } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { authUser } from '../../store/modules/auth/thunk';
-import { checkIsEmailValid, checkIsPasswordValid } from '../../utils';
+import { checkIsEmailValid, checkIsPasswordValid, authReducer } from '../../utils';
 
 import styles from './Auth.module.scss';
 
-export const Auth = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailDirty, setEmailDirty] = useState(false);
-  const [passwordDirty, setPasswordDirty] = useState(false);
-  const [emailError, setEmailError] = useState('You must fill in your email');
-  const [passwordError, setPasswordError] = useState('You must fill in your password');
+interface AuthFormState {
+  email: string;
+  password: string;
+  emailError: string;
+  passwordError: string;
+}
 
-  const dispatch = useAppDispatch();
+export const Auth = () => {
+  const initialState: AuthFormState = {
+    email: '',
+    password: '',
+    emailError: '',
+    passwordError: ''
+  };
+
+  const reduxDispatch = useAppDispatch();
   const errorMessage = useAppSelector(state => state.auth.errorMessage);
+  const [state, dispatch] = useReducer(authReducer, initialState);
+
+  const isFormValid = !state.emailError && !state.passwordError;
+
+  const handleChange = (field: string, value: string) => {
+    dispatch({
+      type: 'CHANGE',
+      payload: {
+        field,
+        value
+      }
+    });
+  };
 
   const blurHandler = ({ target: { name } }: FocusEvent<HTMLInputElement>) => {
-    if (name === 'email') setEmailDirty(true);
-    if (name === 'password') setPasswordDirty(true);
+    if (name === 'email' && !state.emailError && !state.email) handleChange('emailError', 'You must fill in your email');
+    if (name === 'password' && !state.passwordError && !state.password) handleChange('passwordError', 'You must fill in your password');
   };
 
   const handleEmailChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    setEmail(value);
-    setEmailError(checkIsEmailValid(value) || '');
+    handleChange('email', value);
+    handleChange('emailError',checkIsEmailValid(value) || '');
   };
 
   const handlePasswordChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    setPassword(value);
-    setPasswordError(checkIsPasswordValid(value) || '');
+    handleChange('password', value);
+    handleChange('passwordError', checkIsPasswordValid(value) || '');
   };
 
   const handleSignUp = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(authUser({ email, password, path: '/auth/signup' }));
+    reduxDispatch(authUser({ email: state.email, password: state.password, path: '/auth/signup' }));
   };
 
   const handleSignIn = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(authUser({ email, password, path: '/auth/login' }));
+    reduxDispatch(authUser({ email: state.email, password :state.password, path: '/auth/login' }));
   };
 
   return (
     <form className={styles.form}>
-      {emailDirty && emailError && <div className={styles.warning}>{emailError}</div>}
+      {state.emailError && <div className={styles.warning}>{state.emailError}</div>}
       <input
         className={styles.input}
         name='email'
-        value={email}
+        value={state.email}
         placeholder='Email'
         onChange={handleEmailChange}
         onBlur={blurHandler}
         type='email'
       />
-      {passwordDirty && passwordError && <div className={styles.warning}>{passwordError}</div>}
+      { state.passwordError && <div className={styles.warning}>{state.passwordError}</div>}
       <input
         className={styles.input}
         name='password'
         placeholder='Password'
-        value={password}
+        value={state.password}
         onChange={handlePasswordChange}
         onBlur={blurHandler}
         autoComplete='off'
@@ -75,14 +95,14 @@ export const Auth = () => {
           className={styles.button}
           type='submit'
           onClick={handleSignIn}
-          disabled={Boolean(passwordError || emailError)}>
+          disabled={!isFormValid}>
 					Sign In
         </button>
         <button
           className={styles.button}
           type='submit'
           onClick={handleSignUp}
-          disabled={Boolean(passwordError || emailError)}>
+          disabled={!isFormValid}>
 					Register
         </button>
       </div>

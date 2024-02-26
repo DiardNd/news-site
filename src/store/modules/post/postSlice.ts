@@ -12,6 +12,7 @@ type PostState = {
 	searchText: string;
 	isLoading: boolean;
 	error: string | null;
+  selectedPost: Post | null
 };
 
 const initialState: PostState = {
@@ -21,7 +22,8 @@ const initialState: PostState = {
   filterValue: '',
   searchText: '',
   isLoading: false,
-  error: null
+  error: null,
+  selectedPost: null
 };
 
 const postSlice = createSlice({
@@ -37,6 +39,9 @@ const postSlice = createSlice({
     },
     setSearchText(state, action: PayloadAction<string>) {
       state.searchText = action.payload;
+    },
+    setSelectedPost(state, action) {
+      state.selectedPost = action.payload;
     }
   },
 
@@ -65,6 +70,6 @@ const postSlice = createSlice({
   }
 });
 
-export const { postsCounter, setFilterValue, setSearchText, setPostList } = postSlice.actions;
+export const { postsCounter, setFilterValue, setSearchText, setSelectedPost } = postSlice.actions;
 
 export default postSlice.reducer;

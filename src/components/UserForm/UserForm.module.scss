@@ -26,8 +26,11 @@
 }
 
 .fileInput {
-	width: 100%;
+	width: 75%;
 	padding: 10px;
+	border: 1px solid var(--button-border-color);
+	border-radius: 5px;
+	font-size: 14px;
 }
 
 .warning {
