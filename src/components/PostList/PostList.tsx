@@ -8,13 +8,14 @@ import styles from './PostList.module.scss';
 
 export const PostList = () => {
   const dispatch = useAppDispatch();
+
   const startCountPosts = useAppSelector(state => state.post.startCountPosts);
   const endCountPosts = useAppSelector(state => state.post.endCountPosts);
   const posts = useAppSelector(state => state.post.postList.slice(startCountPosts, endCountPosts));
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [startCountPosts]);
+  }, [dispatch, startCountPosts]);
 
   if (posts.length === 0) return null;
 
@@ -24,7 +25,6 @@ export const PostList = () => {
         <PostItem
           key={post.id}
           post={post}
-          onClick={() => {}}
         />
       ))}
     </div>

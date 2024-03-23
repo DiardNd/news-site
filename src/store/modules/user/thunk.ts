@@ -13,5 +13,5 @@ export const editUserById = createAsyncThunk(
     } catch (error) {
       if (error instanceof AxiosError) return error.response?.data.message;
     }
-  }
+  },
 );

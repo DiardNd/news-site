@@ -11,9 +11,10 @@ import { getPosts } from '../../store/modules/post';
 import styles from './UserItem.module.scss';
 
 export const UserItem = () => {
+  const reduxDispatch = useAppDispatch();
+
   const user = useAppSelector(state => state.auth.authUser);
   const myPostList = useAppSelector(state => state.post.postList);
-  const reduxDispatch = useAppDispatch();
 
   useEffect(() => {
     if (myPostList.length === 0) {
@@ -82,7 +83,6 @@ export const UserItem = () => {
             <PostItem
               key={post.id}
               post={post}
-              onClick={() => {}} // временное решение
             />
           </>
         ))}

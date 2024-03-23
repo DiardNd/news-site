@@ -2,6 +2,7 @@ export interface AuthData {
   email: string;
   password: string;
 }
+
 export interface AuthThunk extends AuthData {
   path: string;
 }
@@ -16,6 +17,7 @@ export interface User {
   updatedAt: string;
   rating: number;
 }
+
 export interface ResponseAuthBody {
   user: User;
   accessToken: string;

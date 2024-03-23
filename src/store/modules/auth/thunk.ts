@@ -19,6 +19,7 @@ export const authUser = createAsyncThunk(
 export const getUserByToken = createAsyncThunk('auth/getUserByToken', async () => {
   try {
     const user = await whoAmI();
+    
     return user;
   } catch (error) {
     if (error instanceof AxiosError) return error.response?.data.message;

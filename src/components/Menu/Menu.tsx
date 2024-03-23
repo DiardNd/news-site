@@ -13,6 +13,7 @@ interface MenuProps {
 
 export const Menu = ({ isOpened }: MenuProps) => {
   const dispatch = useAppDispatch();
+
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
   const userId = useAppSelector(state => state.auth.authUser?.id);
 

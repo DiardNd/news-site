@@ -17,11 +17,12 @@ import styles from './Header.module.scss';
 
 export const Header = () => {
   const token = getToken();
-  const [hideSearch, setHideSearch] = useState(true);
-  const [find, setFind] = useState('');
-  const [isMenuOpened, setIsMenuOpened] = useState(false);
-
   const dispatch = useAppDispatch();
+
+  const [hideSearch, setHideSearch] = useState(true);
+  const [isMenuOpened, setIsMenuOpened] = useState(false);
+  const [find, setFind] = useState('');
+
   const startCountPosts = useAppSelector(state => state.post.startCountPosts);
 
   const nextPage = () => {
