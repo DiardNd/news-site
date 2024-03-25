@@ -5,7 +5,6 @@ import { removeToken } from '../../../utils/localStorage';
 import { authUser, getUserByToken } from './thunk';
 import { AuthState } from './types';
 
-
 const initialState: AuthState = {
   isLoading: false,
   authUser: null,

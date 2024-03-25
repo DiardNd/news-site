@@ -4,8 +4,7 @@ import { ModalWindow } from './components/ModalWindow';
 import { Homepage } from './pages/Homepage';
 import { Layout } from './pages/Layout';
 import { NotFoundPage } from './pages/NotFoundPage';
-import { Postpage } from './pages/Postpage';
-import { Userpage } from './pages/Userpage';
+import { UserPage } from './pages/UserPage';
 
 function App() {
   return (
@@ -20,12 +19,8 @@ function App() {
             element={<Homepage />}
           />
           <Route
-            path='/posts/:id'
-            element={<Postpage />}
-          />
-          <Route
             path='/users/:id'
-            element={<Userpage />}
+            element={<UserPage />}
           />
           <Route
             path='*'

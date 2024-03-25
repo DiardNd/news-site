@@ -1,5 +1,5 @@
 import { UserItem } from '../../components/UserItem';
 
-export const Userpage = () => {
+export const UserPage = () => {
   return <UserItem />;
 };

@@ -5,7 +5,7 @@ import { AuthData, ResponseAuthBody, User } from './types';
 
 export const authFetch = async (payload: AuthData, path: string) => {
   const {
-    data: { user, accessToken }
+    data: { user, accessToken },
   } = await api.post<ResponseAuthBody>(path, payload);
 
   setToken(accessToken);

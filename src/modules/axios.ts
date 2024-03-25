@@ -7,7 +7,9 @@ api.interceptors.request.use(
   config => {
     const { headers } = config;
     const token = getToken();
+
     if (token !== null) headers.Authorization = `Bearer ${token}`;
+    
     return config;
   },
   error => Promise.reject(error)

@@ -18,19 +18,18 @@ interface AuthFormState {
   passwordError: string;
 }
 
-export const Auth = () => {
-  const initialState: AuthFormState = {
-    email: '',
-    password: '',
-    emailError: '',
-    passwordError: ''
-  };
+const initialState: AuthFormState = {
+  email: '',
+  password: '',
+  emailError: '',
+  passwordError: ''
+};
 
+
+export const Auth = () => {
   const reduxDispatch = useAppDispatch();
   const errorMessage = useAppSelector(state => state.auth.errorMessage);
   const [state, dispatch] = useReducer(authReducer, initialState);
-
-  const isFormValid = !state.emailError && !state.passwordError;
 
   const handleChange = (field: string, value: string) => {
     dispatch({
@@ -42,28 +41,35 @@ export const Auth = () => {
     });
   };
 
+  const isFormValid = !state.emailError && !state.passwordError;
+
   const blurHandler = ({ target: { name } }: FocusEvent<HTMLInputElement>) => {
     if (name === 'email' && !state.emailError && !state.email) handleChange('emailError', 'You must fill in your email');
+    
     if (name === 'password' && !state.passwordError && !state.password) handleChange('passwordError', 'You must fill in your password');
   };
 
   const handleEmailChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     handleChange('email', value);
+
     handleChange('emailError',checkIsEmailValid(value) || '');
   };
 
   const handlePasswordChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     handleChange('password', value);
+
     handleChange('passwordError', checkIsPasswordValid(value) || '');
   };
 
   const handleSignUp = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     reduxDispatch(authUser({ email: state.email, password: state.password, path: '/auth/signup' }));
   };
 
   const handleSignIn = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     reduxDispatch(authUser({ email: state.email, password :state.password, path: '/auth/login' }));
   };
 

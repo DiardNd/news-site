@@ -7,12 +7,13 @@ import defaultImage from '../../shared/assets/Default-image.png';
 import styles from './PostForm.module.scss';
 
 export const PostForm = () => {
+  const reduxDispatch = useAppDispatch();
+
   const [postPicture, setPostPicture] = useState(defaultImage);
+  const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [tag, setTag] = useState('');
-  const [file, setFile] = useState<File | null>(null);
-  const reduxDispatch = useAppDispatch();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -54,21 +55,18 @@ export const PostForm = () => {
     <form className={styles.postForm} onSubmit={handleSubmit}>
       <input
         className={styles.postTitle}
-        type='text'
+        type="text"
         value={title}
-        name='title'
+        name="title"
         onChange={handleInputChange}
-        placeholder='Place for header...'
+        placeholder="Place for header..."
       />
       <div className={styles.postPicture}>
-        <img
-          src={postPicture}
-          alt='img'
-        />
+        <img src={postPicture} alt="img" />
       </div>
       <input
-        type='file'
-        name='file'
+        type="file"
+        name="file"
         accept="image/jpeg,image/jpg,image/png"
         onChange={handleFileChange}
       />
@@ -76,21 +74,19 @@ export const PostForm = () => {
         className={styles.text}
         value={text}
         onChange={handleInputChange}
-        name='text'
-        placeholder='Place for text...'
+        name="text"
+        placeholder="Place for text..."
       />
       <input
         className={styles.tags}
         value={tag}
         onChange={handleInputChange}
-        type='text'
-        name='tags'
-        placeholder='Tags separated by commas..'
+        type="text"
+        name="tags"
+        placeholder="Tags separated by commas.."
       />
-      <button
-        type='submit'
-        className={styles.button}>
-				Post
+      <button type="submit" className={styles.button}>
+        Post
       </button>
     </form>
   );

@@ -11,6 +11,7 @@ import styles from './ModalWindow.module.scss';
 
 export const ModalWindow = () => {
   const dispatch = useDispatch();
+
   const isOpen = useSelector((state: RootState) => state.modal.isOpen);
   const modalType = useSelector((state: RootState) => state.modal.modalType);
 
@@ -18,19 +19,15 @@ export const ModalWindow = () => {
     dispatch(toggleSetModal({ isOpen: false, modalType: ModalType.SIGN_IN }));
   };
 
-  const isModalSign = modalType.includes('SIGN IN');
-  const isModalUserForm = modalType.includes('EDIT USER');
-  const isModalConfirmDelete = modalType.includes('DELETE');
-  const isModalPostForm = modalType.includes('EDIT POST');
+  const isModalSign = modalType.includes(ModalType.SIGN_IN);
+  const isModalUserForm = modalType.includes(ModalType.EDIT_USER);
+  const isModalConfirmDelete = modalType.includes(ModalType.DELETE_POST);
+  const isModalPostForm = modalType.includes(ModalType.EDIT_POST);
 
   return (
     isOpen && (
-      <div
-        className={styles.modalOverlay}
-        onClick={handleCloseModal}>
-        <div
-          className={styles.modalContent}
-          onClick={e => e.stopPropagation()}>
+      <div className={styles.modalOverlay} onClick={handleCloseModal}>
+        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
           {isModalSign && <Auth />}
           {isModalUserForm && <UserForm />}
           {isModalConfirmDelete && <DeletePost />}
